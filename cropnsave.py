@@ -2,7 +2,6 @@ import os
 import cv2
 import numpy as np
 import sys
-import uuid
 
 supported_extensions = ['tif', 'tiff', 'TIF', 'TIFF']
 
@@ -27,8 +26,8 @@ save_path = input("Enter the path to save the cropped images: ")
 if not os.path.exists(save_path):
     os.makedirs(save_path)
 
-
 j = 0
+i = 0
 first_crop = False
 
 def mouse_click(event, x, y, flags, param):
@@ -39,16 +38,17 @@ def mouse_click(event, x, y, flags, param):
         x2, y2 = x, y
 
 def crop(img, filename, x1, y1, x2, y2):
+    global i
     try:
         croped = img[y1:y2, x1:x2]
         cv2.imwrite(filename+'.jpg', croped)
+        i += 1
         return True
     except Exception as e:
         print(f"[ERROR] --> {e}")
 
 cv2.namedWindow('image') 
 cv2.setMouseCallback('image', mouse_click)
-
 
 while j < len(files):
     global x1, y1, x2, y2
@@ -68,18 +68,16 @@ while j < len(files):
         if x1 < x2 and y1 < y2:
             first_crop = True
             filename = files[j].split('/')[-1].split('.')[0]
-            random_id = str(uuid.uuid4())
-            
             x3 = int(np.interp(x1, [0, img_copy.shape[1]], [0, img.shape[1]]))
             x4 = int(np.interp(x2, [0, img_copy.shape[1]], [0, img.shape[1]]))
             y3 = int(np.interp(y1, [0, img_copy.shape[0]], [0, img.shape[0]]))
             y4 = int(np.interp(y2, [0, img_copy.shape[0]], [0, img.shape[0]]))
-
-            crop(img, save_path+'/'+filename+'_'+random_id, x3, y3, x4, y4)
-
+            crop(img, save_path+'/'+filename+'_'+str(i), x3, y3, x4, y4)
     if key == ord('n'):
+        i = 0
         j += 1
     if key == ord('p'):
+        i = 0
         j -= 1
     if j < 0:
         j = 0
