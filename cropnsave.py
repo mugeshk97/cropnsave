@@ -12,9 +12,11 @@ if not os.path.exists(path):
     sys.exit()
 else:
     files = {}
-    for idx, filename in enumerate(sorted(os.listdir(path))):
+    idx = 0
+    for filename in sorted(os.listdir(path)):
         if filename.split('.')[-1] in supported_extensions:
             files[idx] = os.path.join(path, filename)    
+            idx += 1
     if len(files) == 0:
         print(f"[INFO] --> No files found in the path  {path}")
         sys.exit()
