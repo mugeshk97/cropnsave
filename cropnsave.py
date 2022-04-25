@@ -73,10 +73,10 @@ while j < len(files):
             y3 = int(np.interp(y1, [0, img_copy.shape[0]], [0, img.shape[0]]))
             y4 = int(np.interp(y2, [0, img_copy.shape[0]], [0, img.shape[0]]))
             crop(img, save_path+'/'+filename+'_'+str(i), x3, y3, x4, y4)
-    if key == ord('n'):
+    if key == ord('d'):
         i = 0
         j += 1
-    if key == ord('p'):
+    if key == ord('a'):
         i = 0
         j -= 1
     if j < 0:
