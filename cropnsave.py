@@ -77,3 +77,10 @@ while j < len(files):
 
     if key == ord('n'):
         j += 1
+    if key == ord('p'):
+        j -= 1
+    if j < 0:
+        j = 0
+    if j >= len(files):
+        j = len(files) - 1
+
