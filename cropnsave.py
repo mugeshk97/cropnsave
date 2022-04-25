@@ -4,7 +4,7 @@ import numpy as np
 import sys
 import uuid
 
-supported_extensions = ['.tif', '.tiff', '.TIF', '.TIFF']
+supported_extensions = ['tif', 'tiff', 'TIF', 'TIFF']
 
 path = input("Enter the path to the image dir: ")
 if not os.path.exists(path):
