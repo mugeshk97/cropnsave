@@ -39,9 +39,10 @@ else:
     else:
         print(f"[INFO] --> Found {len(files)} files in the path  {path}")
 
-save_path = input("Enter the path to save the cropped images: ")
-if not os.path.exists(save_path):
-    os.makedirs(save_path)
+if type == 'save' or type == 'both':
+    save_path = input("Enter the path to save the cropped images: ")
+    if not os.path.exists(save_path):
+        os.makedirs(save_path)
 
 j = 0
 i = 0
