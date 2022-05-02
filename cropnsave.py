@@ -8,6 +8,20 @@ import pandas as pd
 
 supported_extensions = ['tif', 'tiff', 'TIF', 'TIFF']
 
+if len(sys.argv) == 2:
+    type = sys.argv[1]
+    if type == 'save' or type == 'both' or type == 'crop':
+        print(f"[INFO] --> {type} mode selected")
+    else:
+        print("[ERROR] --> Invalid argument please use 'save' or 'crop' or 'both'")
+        sys.exit()
+elif len(sys.argv) > 2:
+    print("[ERROR] --> Too many arguments")
+    sys.exit()
+else:
+    print("[ERROR] --> Please provide an argument (save/crop/both)")
+    sys.exit()
+
 path = input("Enter the path to the image dir: ")
 if not os.path.exists(path):
     print("[INFO] --> Path does not exist")
@@ -41,10 +55,11 @@ def mouse_click(event, x, y, flags, param):
         x2, y2 = x, y
 
 def crop(img, filename, x1, y1, x2, y2):
-    global i
+    global i, type
     try:
         croped = img[y1:y2, x1:x2]
-        cv2.imwrite(filename+'.jpg', croped)
+        if type == 'save' or type == 'both':
+            cv2.imwrite(filename+'.jpg', croped)
         i += 1
         return croped, True
     except Exception as e:
@@ -78,7 +93,7 @@ while j < len(files):
             y3 = int(np.interp(y1, [0, img_copy.shape[0]], [0, img.shape[0]]))
             y4 = int(np.interp(y2, [0, img_copy.shape[0]], [0, img.shape[0]]))
             croped, ret =crop(img, save_path+'/'+filename+'_'+str(i), x3, y3, x4, y4)
-            if ret:
+            if ret and (type == 'ocr' or type == 'both'):
                 try:
                     request_url = 'http://127.0.0.1:5000/'
                     croped_base64 = cv2.imencode('.jpg', croped)[1].tobytes()
@@ -137,8 +152,7 @@ while j < len(files):
     if key == ord('v'): # reduce bottom right
         x2 -= 10
         y2 -= 10
-    # if shift +8, move the crop window to the top
-
-    if key == ord('j'): # center
-        df.to_csv(save_path+'/'+'data.csv', index=False)
+    if key == ord('j'): # download the result
+        if not df.empty:
+            df.to_csv(save_path+'/'+'data.csv', index=False)
     
