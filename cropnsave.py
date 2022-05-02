@@ -10,10 +10,10 @@ supported_extensions = ['tif', 'tiff', 'TIF', 'TIFF']
 
 if len(sys.argv) == 2:
     type = sys.argv[1]
-    if type == 'save' or type == 'both' or type == 'crop':
+    if type == 'save' or type == 'both' or type == 'ocr':
         print(f"[INFO] --> {type} mode selected")
     else:
-        print("[ERROR] --> Invalid argument please use 'save' or 'crop' or 'both'")
+        print("[ERROR] --> Invalid argument please use 'save' or 'ocr' or 'both'")
         sys.exit()
 elif len(sys.argv) > 2:
     print("[ERROR] --> Too many arguments")
@@ -78,7 +78,7 @@ while j < len(files):
     img_copy = img.copy()
     img_copy = cv2.resize(img_copy, (720, 920), interpolation = cv2.INTER_CUBIC)
     if first_crop:
-        cv2.rectangle(img_copy, (x1, y1), (x2, y2), (0, 0, 0), 3)
+        cv2.rectangle(img_copy, (x1, y1), (x2, y2), (139,0,0), 3)
     cv2.imshow('image', img_copy)    
     key = cv2.waitKey(1) & 0xFF
     if key == ord('q'):
