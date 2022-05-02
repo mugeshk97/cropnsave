@@ -114,44 +114,45 @@ while j < len(files):
         j = 0
     if j >= len(files):
         j = len(files) - 1
+    pan_size = 10
     # move the crop window
     if key == ord('8'): # up
-        y1 -= 10
-        y2 -= 10
+        y1 -= pan_size
+        y2 -= pan_size
     if key == ord('2'): # down
-        y1 += 10
-        y2 += 10
+        y1 += pan_size
+        y2 += pan_size
     if key == ord('4'): # left
-        x1 -= 10
-        x2 -= 10
+        x1 -= pan_size
+        x2 -= pan_size
     if key == ord('6'): # right
-        x1 += 10
-        x2 += 10
+        x1 += pan_size
+        x2 += pan_size
     # adjust the edge of the crop window
     if key == ord('7'): # top left
-        x1 -= 10
-        y1 -= 10
+        x1 -= pan_size
+        y1 -= pan_size
     if key == ord('9'): # top right
-        x2 += 10
-        y1 -= 10
+        x2 += pan_size
+        y1 -= pan_size
     if key == ord('1'): # bottom left
-        x1 -= 10
-        y2 += 10
+        x1 -= pan_size
+        y2 += pan_size
     if key == ord('3'): # bottom right
-        x2 += 10
-        y2 += 10
+        x2 += pan_size
+        y2 += pan_size
     if key == ord('z'): # reduce top left
-        x1 += 10
-        y1 += 10
+        x1 += pan_size
+        y1 += pan_size
     if key == ord('x'): # reduce top right
-        x2 -= 10
-        y1 += 10
+        x2 -= pan_size
+        y1 += pan_size
     if key == ord('c'): # reduce bottom left
-        x1 += 10
-        y2 -= 10
+        x1 += pan_size
+        y2 -= pan_size
     if key == ord('v'): # reduce bottom right
-        x2 -= 10
-        y2 -= 10
+        x2 -= pan_size
+        y2 -= pan_size
     if key == ord('j'): # download the result
         if not df.empty:
             df.to_csv(save_path+'/'+'data.csv', index=False)
